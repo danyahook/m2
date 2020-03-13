@@ -1,0 +1,20 @@
+{
+    "mage_news": {
+        "column": {
+            "news_id": true,
+            "title": true,
+            "creation_time": true,
+            "update_time": true,
+            "description": true,
+            "is_active": true,
+            "content": true,
+            "image": true
+        },
+        "index": {
+            "MAGE_NEWS_TITLE_CONTENT": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Oggetto\Test\Api\Data\NewsInterface" type="Oggetto\Test\Model\News" />
+    <preference for="Oggetto\Test\Api\NewsRepositoryInterface" type="Oggetto\Test\Model\NewsRepository" />
+
+    <virtualType name="NewsGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="NewsGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Oggetto\Test\Model\Resource\News\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">NewsGridDataProvider</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Oggetto\Test\Model\ResourceModel\News\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mage_news</argument>
+            <argument name="resourceModel" xsi:type="string">Oggetto\Test\Model\ResourceModel\News</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="news_news_listing_data_source" xsi:type="string">Oggetto\Test\Model\ResourceModel\News\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="VirtualTypeName" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">productreview/tmp/image</argument>
+            <argument name="basePath" xsi:type="string">productreview/image</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="VendorName\ModuleName\Controller\Adminhtml\Index\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">VirtualTypeName</argument>
+        </arguments>
+    </type>
+</config>

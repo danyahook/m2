@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @var \Oggetto\Test\Block\Display $block
+ */
+
+?>
+
+<style>
+table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;  margin-top: 30px;}
+td, th {  border: 1px solid #dddddd;  text-align: left;  padding: 8px;  }
+tr:nth-child(even) { background-color: #dddddd; }
+.post-id{width:2%} .post-name{width:30%}
+
+</style>
+
+<?php if ($block->isExpanded()) :?>
+    <?php include ($block->getTemplateFile('Oggetto_Test::sorter.phtml')) ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getSelectHtml(); ?></div>
+<?php endif; ?>
+
+<table>
+  <tr>
+    <th class="post-name">Titile</th>
+    <th>Creation Time</th>
+    <th>Image</th>
+    <th>Description</th>
+  </tr>
+    <?php
+foreach ($block->getNewsCollection() as $key => $post) {
+    echo '<tr>
+            <td>'.$post->getTitle().'</td>
+            <td>'.$post->getCreationTime().'</td>
+            <td>'.$post->isActive().'</td>
+            <td>'.$post->getDescription().'</td>
+          </tr>';
+}
+    ?>
+</table>
+
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>

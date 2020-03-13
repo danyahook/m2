@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mage_news" resource="default" engine="innodb" comment="News Table">
+        <column xsi:type="smallint" name="news_id" padding="6" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="News Title"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="News Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="News Modification Time"/>
+        <column xsi:type="mediumtext" name="description" nullable="false" comment="Description of content"/>
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is News Active"/>
+        <column xsi:type="mediumtext" name="content" nullable="false" comment="News Content"/>
+        <column xsi:type="varchar" name="image" length="255" nullable="false" comment="Image"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="news_id"/>
+        </constraint>
+        <index referenceId="NEWS_TITLE_IDENTIFIER_CONTENT" indexType="fulltext">
+            <column name="title"/>
+            <column name="content"/>
+        </index>
+    </table>
+</schema>
