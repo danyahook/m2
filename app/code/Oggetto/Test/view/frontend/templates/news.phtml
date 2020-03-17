@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @var \Oggetto\Test\Block\View $block
+ */
+
+?>
+
+<?php
+foreach ($block->getNewsCollection() as $key => $post) {
+    echo '<h1>' . $post->getTitle() . '</h1><br><p>' . $post->getContent() . '</p>';
+}
+?>

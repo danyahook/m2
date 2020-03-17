@@ -9,6 +9,7 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Store\Model\StoreManagerInterface;
 use Oggetto\Test\Api\Data\NewsInterface;
 use Oggetto\Test\Model\News\FileInfo;
+use Oggetto\Test\Model\Product\Url;
 
 /**
  * Class News
@@ -33,6 +34,7 @@ class News extends \Magento\Framework\Model\AbstractModel implements NewsInterfa
      */
     protected $_storeManager;
 
+    protected $_urlModel;
     /**
      * Construct.
      *
@@ -41,6 +43,7 @@ class News extends \Magento\Framework\Model\AbstractModel implements NewsInterfa
     protected function _construct()
     {
         $this->_init('Oggetto\Test\Model\ResourceModel\News');
+        $this->_urlModel = ObjectManager::getInstance()->get(Product\Url::class);
     }
 
     /**
@@ -242,6 +245,11 @@ class News extends \Magento\Framework\Model\AbstractModel implements NewsInterfa
             }
         }
         return $url;
+    }
+
+    public function getNewsUrl()
+    {
+        return $this->_urlModel->getUrl($this);
     }
 
     /**
